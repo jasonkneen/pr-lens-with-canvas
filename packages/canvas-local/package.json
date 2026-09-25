@@ -1,0 +1,36 @@
+{
+  "name": "@coldtea/pr-lens-canvas-local",
+  "version": "0.0.0",
+  "private": true,
+  "description": "The PR Lens canvas on your own machine: a store that speaks the canvas API, and the page that shows it.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "pr-lens-canvas": "./dist/bin.js"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && vite build web",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p web/tsconfig.json --noEmit",
+    "test": "vitest run",
+    "start": "node dist/bin.js"
+  },
+  "dependencies": {
+    "@coldtea/pr-lens-renderer": "workspace:^",
+    "@coldtea/pr-lens-schema": "workspace:^",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "typescript": "7.0.2",
+    "vite": "^8.2.2",
+    "vitest": "4.1.11"
+  }
+}

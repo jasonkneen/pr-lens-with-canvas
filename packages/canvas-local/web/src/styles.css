@@ -1,0 +1,125 @@
+:root {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; overflow: hidden; }
+
+.app {
+  --bg: #0e1116;
+  --dot: #1f2530;
+  --ink: #e6e9ef;
+  --muted: #8b93a3;
+  --chrome: rgba(22, 26, 33, 0.92);
+  --line: #2a303b;
+  --accent: #6aa8ff;
+  --dim: rgba(8, 10, 14, 0.62);
+  height: 100%;
+  background: var(--bg) radial-gradient(var(--dot) 1px, transparent 1px) 0 0 / 22px 22px;
+  color: var(--ink);
+}
+.app.light {
+  --bg: #f6f7f9;
+  --dot: #dde1e7;
+  --ink: #1b1f27;
+  --muted: #5d6573;
+  --chrome: rgba(255, 255, 255, 0.94);
+  --line: #dfe3e9;
+  --accent: #2563eb;
+  --dim: rgba(246, 247, 249, 0.72);
+}
+
+.surface { position: absolute; inset: 0; cursor: grab; touch-action: none; user-select: none; }
+.surface:active { cursor: grabbing; }
+.world { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+
+.tile { position: absolute; transition: opacity 300ms; }
+.tile.faded { opacity: 0.35; }
+.tile h2 { margin: 0; height: 44px; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 600; white-space: nowrap; }
+.tile .tag { font-size: 13px; font-weight: 500; color: var(--muted); }
+.tile.fork h2 { color: var(--accent); }
+.picture { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px var(--line); }
+.picture > svg { display: block; width: 100%; height: 100%; }
+
+.overlay { position: absolute; pointer-events: none; overflow: visible; }
+.dim { fill: var(--dim); }
+.rim { fill: none; stroke: var(--accent); stroke-width: 3; }
+.picked { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 6 5; }
+.region { fill: color-mix(in srgb, var(--accent) 12%, transparent); stroke: var(--accent); stroke-width: 1.5; }
+
+.bar {
+  position: absolute; top: 12px; left: 12px; right: 12px;
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  pointer-events: none;
+}
+.bar > * { pointer-events: auto; }
+.title, .tools {
+  background: var(--chrome); border: 1px solid var(--line); border-radius: 10px;
+  padding: 6px 12px; display: flex; align-items: center; gap: 8px; backdrop-filter: blur(8px);
+}
+.title span, .zoom { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.zoom { min-width: 42px; text-align: center; }
+
+button {
+  font: inherit; font-size: 13px; color: var(--ink); background: transparent;
+  border: 1px solid var(--line); border-radius: 7px; padding: 4px 10px; cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: 0.35; cursor: default; }
+
+.live { font-size: 13px; }
+.live.on { color: #3ecf8e; }
+.live.off { border-color: var(--accent); color: var(--accent); }
+.live.ended { color: var(--muted); }
+
+.panel {
+  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%);
+  width: min(720px, calc(100% - 32px)); max-height: 40vh; overflow: auto;
+  background: var(--chrome); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px 20px; backdrop-filter: blur(10px);
+}
+.panel .kicker { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.panel h3 { margin: 6px 0; font-size: 18px; }
+.panel p { margin: 6px 0; line-height: 1.5; color: var(--ink); }
+.panel .cannot { color: var(--muted); font-style: italic; }
+.ref { border: none; border-bottom: 1px dashed var(--accent); border-radius: 0; padding: 0; color: var(--accent); font-size: inherit; }
+.controls { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.controls .dots { display: flex; gap: 6px; margin-right: auto; }
+.dot { width: 8px; height: 8px; padding: 0; border-radius: 50%; background: var(--line); border: none; }
+.dot.on { background: var(--accent); }
+.count { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.empty { height: 100%; display: grid; place-items: center; color: var(--muted); padding: 16px; text-align: center; }
+
+.payload {
+  position: absolute; top: 72px; right: 12px; bottom: 12px; width: min(440px, calc(100% - 24px));
+  display: flex; flex-direction: column; gap: 10px; overflow: auto;
+  background: var(--chrome); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px; backdrop-filter: blur(10px); z-index: 2; cursor: auto;
+}
+.payload header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.payload .kicker { font-size: 12px; color: var(--muted); }
+.payload h3 { margin: 4px 0 0; font-size: 17px; }
+.payload .note, .payload .nothing { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.tabs, .toggle { display: flex; gap: 6px; }
+.tabs button.on, .toggle button.on { border-color: var(--accent); color: var(--accent); }
+.side { display: flex; flex-direction: column; gap: 8px; }
+.side-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.type { font-size: 13px; color: var(--ink); }
+.legend { font-size: 12px; color: var(--muted); }
+.legend span { padding: 0 4px; border-radius: 4px; }
+.json {
+  margin: 0; padding: 12px; border-radius: 10px; border: 1px solid var(--line);
+  font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap; word-break: break-word;
+  background: color-mix(in srgb, var(--bg) 70%, transparent); user-select: text;
+}
+.json .line { white-space: pre-wrap; }
+.json .key { color: var(--accent); }
+.json .value.number, .json .value.boolean { color: #d19a66; }
+.json .value.string { color: var(--ink); }
+.added { background: rgba(62, 207, 142, 0.16); color: #2fb67a; }
+.removed { background: rgba(240, 82, 82, 0.14); color: #e25555; text-decoration: line-through; }
+.changed { background: rgba(230, 170, 50, 0.16); }
+.legend .changed { color: #c98a12; }
+.json .line.added .key, .json .line.added .value { color: #2fb67a; }
+.json .line.removed .key, .json .line.removed .value { color: #e25555; }
+.source { font-size: 12px; color: var(--muted); font-family: ui-monospace, Menlo, monospace; }

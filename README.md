@@ -385,6 +385,7 @@ This is also the shape of reviewing an agent's work: while you read the diff, th
 | [`packages/cli`](packages/cli)                 | `@coldtea/pr-lens-cli`: read a diff with your own model key, render it, compose the comment          |
 | [`packages/action`](packages/action)           | the GitHub Action: analyze, publish, post one static comment                                         |
 | [`packages/agent-skill`](packages/agent-skill) | `@coldtea/pr-lens-agent-skill`: teaches a coding agent to draw the change it just made               |
+| [`packages/canvas-local`](packages/canvas-local) | the canvas on your own machine: a store that speaks the canvas API, and the page that shows it |
 
 <br />
 
@@ -402,6 +403,8 @@ Node 20.11+ and pnpm 10.
 ## Self-hosting the canvas
 
 Please start here [docs/canvas-api.md](docs/canvas-api.md)
+
+For a working one, [`packages/canvas-local`](packages/canvas-local) runs the whole canvas on your machine: pan and zoom, walkthroughs, payloads and live mode. Start it, set `PR_LENS_API_URL=http://localhost:4780`, and push as usual.
 
 <br />
 

@@ -6,7 +6,7 @@ This documents the protocol underneath the canvas page. Mostly the shape of /api
 
 This page is that protocol. It is written for someone implementing a private store, so the CLI's `push`, `pull`, `rotate` and `delete` work against it. It covers what travels over the wire and nothing behind it: how the hosted app stores revisions, draws pictures or meters traffic is its own business, and a private server is free to do all of that differently or not at all.
 
-The CLI's client, [`packages/cli/src/canvas/api.ts`](../packages/cli/src/canvas/api.ts), is the reference for the shapes here. Where this page and that file disagree, the file is right and this page has a bug.
+The CLI's client, [`packages/cli/src/canvas/api.ts`](../packages/cli/src/canvas/api.ts), is the reference for the shapes here. [`packages/canvas-local`](../packages/canvas-local) is a complete store built to this page, with the canvas page beside it, if you would rather start from working code. Where this page and that file disagree, the file is right and this page has a bug.
 
 ## Version
 
