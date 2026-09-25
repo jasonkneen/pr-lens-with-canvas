@@ -1,3 +1,25 @@
+## About this fork
+
+[coldteadotai/pr-lens](https://github.com/coldteadotai/pr-lens) open-sources the diagrams, the CLI and the protocol. The interactive canvas, where you open a diagram big, walk through it and let your agent answer on it, lives only on prlens.dev. This fork adds that canvas as code you can run on your own machine: [`packages/canvas-local`](packages/canvas-local).
+
+| Feature | Them (open-source repo) | Us (this fork) |
+| --- | --- | --- |
+| Architecture and data-flow diagrams, light and dark | ✅ | ✅ same renderer |
+| Drill-down sections in the PR comment | ✅ | ✅ |
+| CLI: `canvas push`, `pull`, `rotate`, `delete` | ✅ against prlens.dev | ✅ against your own server too |
+| Canvas API spec | ✅ `docs/canvas-api.md` | ✅ plus a working server that implements it |
+| A server to store canvases | ❌ hosted only | ✅ `node packages/canvas-local/dist/bin.js` |
+| The canvas page (pan, zoom, fit, theme) | ❌ hosted only | ✅ |
+| Walkthrough player (dim, light, step through, `W`, `#s=` links) | ❌ hosted only | ✅ |
+| Payload panel (click an arrow: request/response, added keys green, dropped red) | ❌ hosted only | ✅ |
+| Live mode page: your agent's `answer`, `show`, `fork`, `look` | ❌ hosted only (the CLI half ships) | ✅ |
+| Runs offline, no account, your data stays on your machine | ❌ | ✅ |
+| Open the canvas as its own app window | ❌ | ✅ via Chrome's app mode |
+| Ask bar with a built-in agent | ❌ hosted only | ❌ not yet |
+| Component inspector with file diffs | ❌ hosted only | ❌ not yet |
+
+<br />
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/brand/mark.dark.svg">
